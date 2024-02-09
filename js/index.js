@@ -1,12 +1,12 @@
 // JavaScript Document
 const defaultScale = 3;
-var scaleTile = defaultScale;
 $(document).ready(function() {
     var x = "x"
     var o = "o"
     var count = 0;
     var o_win = 0;
     var x_win = 0;
+    var scaleTile = $("#size_scale").val();
     alert(scaleTile + " x " + scaleTile);
     $('#game li').click(function(){
 
