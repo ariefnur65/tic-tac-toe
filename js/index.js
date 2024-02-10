@@ -53,10 +53,19 @@ $(document).ready(function () {
 
     $("#reset").click(() => resetGame(numberOfTilesOrigin, scaleTileOrigin));
 
-    var clickEvent = (event) => {
+    let checkWinner = () => {
+
+    }
+
+    let clickEvent = (event) => {
         //todo: change text according to player
         let currentTarget = $(event.currentTarget);
         let playerTurn = document.getElementById('player_turn');
+        if (currentTarget.hasClass("disable")) {
+            alert('Already selected')
+            return;
+        }
+
         if (count >= numberOfTilesOrigin) {
             //todo: check winner or tie
             alert('It is a tie, the game will restart ');
