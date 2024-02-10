@@ -6,8 +6,33 @@ $(document).ready(function() {
     var count = 0;
     var o_win = 0;
     var x_win = 0;
-    var scaleTile = $("#size_scale").val();
-    alert(scaleTile + " x " + scaleTile);
+    var scaleTile = parseInt($("#size_scale").val());
+    var numberOfTiles = scaleTile *  scaleTile;
+
+    //todo: generate tile
+    var generateSizeTile = (scaleTile, numberOfTiles)  => {
+        scaleTile = parseInt($("#size_scale").val());
+        numberOfTiles = scaleTile * scaleTile;
+        return {scaleTile, numberOfTiles};
+    }
+
+
+    var generateTile = (numberOfTiles, scaleTile) => {
+        var gameBoard = document.getElementById('game_board');
+        gameBoard.innerHTML = '';
+        for (let i = 0; i < numberOfTiles; i++) {
+            $(gameBoard).append('<li ' + 'id="' + i.toString() + '" class="btn span_tic">+</li>')
+        }
+        $(gameBoard).css({
+            "color": "red",
+            "width" : 110 * scaleTile,
+            "border": "1px solid black"
+        });
+
+    }
+
+    generateTile(numberOfTiles, scaleTile);
+
     $('#game li').click(function(){
 
         if ($("#one").hasClass('o') && $("#two").hasClass('o') && $("#three").hasClass('o') || $("#four").hasClass('o') && $("#five").hasClass('o') && $("#six").hasClass('o') || $("#seven").hasClass('o') && $("#eight").hasClass('o') && $("#nine").hasClass('o') || $("#one").hasClass('o') && $("#four").hasClass('o') && $("#seven").hasClass('o') || $("#two").hasClass('o') && $("#five").hasClass('o') && $("#eight").hasClass('o') || $("#three").hasClass('o') && $("#six").hasClass('o') && $("#nine").hasClass('o') || $("#one").hasClass('o') && $("#five").hasClass('o') && $("#nine").hasClass('o') || $("#three").hasClass('o') && $("#five").hasClass('o') && $("#seven").hasClass('o'))
@@ -72,7 +97,8 @@ $(document).ready(function() {
             }
         }
     });
-    $("#reset").click(function () {
+
+    var resetGame = (numberOfTiles, scaleTile) => {
         $("#game li").text("+");
         $("#game li").removeClass('disable')
         $("#game li").removeClass('o')
@@ -80,6 +106,11 @@ $(document).ready(function() {
         $("#game li").removeClass('btn-primary')
         $("#game li").removeClass('btn-info')
         count = 0
+        const sizeTile = generateSizeTile(scaleTile, numberOfTiles);
+        scaleTile = sizeTile.scaleTile;
+        numberOfTiles = sizeTile.numberOfTiles;
+        generateTile(numberOfTiles, scaleTile)
+    }
 
-    });
+    $("#reset").click(() => resetGame(numberOfTiles, scaleTile));
 });
