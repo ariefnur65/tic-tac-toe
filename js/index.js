@@ -49,8 +49,6 @@ $(document).ready(function () {
         if (isEven) {
             generateDiagonalList(scaleTile);
         }
-        console.log('leftDiagonal', leftDiagonal);
-        console.log('rightDiagonal', rightDiagonal);
         $(gameBoard).css({
             "color": "red",
             "width": 110 * scaleTile,
