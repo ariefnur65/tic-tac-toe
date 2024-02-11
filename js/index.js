@@ -42,13 +42,10 @@ $(document).ready(function () {
         playerTurn.innerHTML = o + '\' player turns';
         leftDiagonal = [];
         rightDiagonal = [];
-        let isEven = scaleTile % 2 === 1;
         for (let i = 0; i < numberOfTiles; i++) {
             $(gameBoard).append('<li ' + 'id="' + i.toString() + '" class="btn span_tic">+</li>')
         }
-        if (isEven) {
-            generateDiagonalList(scaleTile);
-        }
+        generateDiagonalList(scaleTile);
         $(gameBoard).css({
             "color": "red",
             "width": 110 * scaleTile,
