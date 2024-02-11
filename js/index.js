@@ -1,11 +1,10 @@
 // JavaScript Document
-const defaultScale = 3;
 $(document).ready(function () {
     const x = "x";
     const o = "o";
     let count = 0;
-    var o_win = 0;
-    var x_win = 0;
+    let o_win = 0;
+    let x_win = 0;
     let scaleTileOrigin = parseInt($("#size_scale").val());
     let numberOfTilesOrigin = scaleTileOrigin * scaleTileOrigin;
     let hasWinner = false;
@@ -13,13 +12,13 @@ $(document).ready(function () {
     let leftDiagonal = [];
     let rightDiagonal = [];
 
-    var generateSizeTile = (scaleTile, numberOfTiles) => {
+    let generateSizeTile = (scaleTile, numberOfTiles) => {
         scaleTile = parseInt($("#size_scale").val());
         numberOfTiles = scaleTile * scaleTile;
         return {scaleTile, numberOfTiles};
     }
 
-    var attachOnClickListener = () => {
+    let attachOnClickListener = () => {
         $('#game_board li').click((event) => clickEvent(event));
     }
 
@@ -36,7 +35,7 @@ $(document).ready(function () {
         }
     }
 
-    var generateTile = (numberOfTiles, scaleTile) => {
+    let generateTile = (numberOfTiles, scaleTile) => {
         let gameBoard = document.getElementById('game_board');
         let playerTurn = document.getElementById('player_turn');
         gameBoard.innerHTML = '';
@@ -61,7 +60,7 @@ $(document).ready(function () {
     }
 
     generateTile(numberOfTilesOrigin, scaleTileOrigin);
-    var resetGame = (numberOfTiles, scaleTile) => {
+    let resetGame = (numberOfTiles, scaleTile) => {
         let gameCellElement = $("#game li");
         gameCellElement.text("+");
         gameCellElement.removeClass('disable')
@@ -144,7 +143,7 @@ $(document).ready(function () {
             return isWinnerByCheckVertical
         }
         const isWinnerByLeftDiagonalCheck = checkDiagonal(idCell, listOfCell, playerSign, leftDiagonal);
-        if (isCheck) {
+        if (isWinnerByLeftDiagonalCheck) {
             declarationWinner(playerSign);
             return isWinnerByLeftDiagonalCheck
         }
