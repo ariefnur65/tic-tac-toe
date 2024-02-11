@@ -47,9 +47,7 @@ $(document).ready(function () {
         }
         generateDiagonalList(scaleTile);
         $(gameBoard).css({
-            "color": "red",
-            "width": 110 * scaleTile,
-            "border": "1px solid black"
+            "width": 85 * scaleTile,
         });
         attachOnClickListener()
     }
