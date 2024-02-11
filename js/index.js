@@ -39,7 +39,7 @@ $(document).ready(function () {
         let gameBoard = document.getElementById('game_board');
         let playerTurn = document.getElementById('player_turn');
         gameBoard.innerHTML = '';
-        playerTurn.innerHTML = o + '\' player turns';
+        playerTurn.innerHTML = o.toUpperCase() + '\' player turns';
         leftDiagonal = [];
         rightDiagonal = [];
         for (let i = 0; i < numberOfTiles; i++) {
@@ -176,7 +176,7 @@ $(document).ready(function () {
                 o_win++;
                 oWin.innerText = o_win.toString();
             }
-            playerTurn.innerHTML = x + '\' player turns';
+            playerTurn.innerHTML = x.toUpperCase() + '\' player turns';
         } else {
             currentTarget.text(x);
             currentTarget.addClass('disable x btn-primary')
@@ -186,7 +186,7 @@ $(document).ready(function () {
                 x_win++;
                 xWin.innerText = x_win.toString();
             }
-            playerTurn.innerHTML = o + '\' player turns';
+            playerTurn.innerHTML = o.toUpperCase() + '\' player turns';
         }
     }
 
