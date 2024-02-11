@@ -7,32 +7,32 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div id="tic-tac-toe">
-    <div class="span3 new_span">
-        <div class="row">
-            <h1 class="span3">Tic Tac Toe</h1>
-            <div class="span3">
-                <div class="input-prepend input-append">
-                    <span class="add-on win_text">O won</span><strong id="o_win"
-                                                                      class="win_times add-on">0</strong><span
-                        class="add-on">time(s)</span>
-                </div>
-                <div class="input-prepend input-append">
-                    <span class="add-on win_text">X won</span><strong id="x_win"
-                                                                      class="win_times add-on">0</strong><span
-                        class="add-on">time(s)</span>
-                </div>
-                <p id="player_turn"></p>
+<div id="tic-tac-toe" class="center-container">
+    <div class="vertical-container">
+        <div class="vertical-container" style="text-align: center;">
+            <div>
+                <h1 class="span3">Tic Tac Toe</h1>
             </div>
+            <div style="width: max-content" class="input-prepend input-append">
+                <span class="add-on win_text">O won</span><strong id="o_win"
+                                                                  class="win_times add-on">0</strong><span
+                    class="add-on">time(s)</span>
+            </div>
+            <div style="width: max-content" class="input-prepend input-append">
+                <span class="add-on win_text">X won</span><strong id="x_win"
+                                                                  class="win_times add-on">0</strong><span
+                    class="add-on">time(s)</span>
+            </div>
+            <h4 style="width: max-content" class="span3" id="player_turn"></h4>
         </div>
-
-        <ul class="row" id="game_board">
+        <ul id="game_board" style="text-align: center;">
         </ul>
-        <div class="input-prepend input-append">
-            <label for="size_scale">Tic Tac Toe Tile Size: </label>
+        <div class="input-prepend input-append" style="text-align: center;">
+            <label for="size_scale">Tic Tac Toe Tile Size: (Press restart to change size)</label>
             <input type="number" min="3" class="form-control" id="size_scale" placeholder="(Min: 3)" value="3">
         </div>
-        <div class="row"><a href="#" id="reset" class="btn-success btn span3">Restart</a></div>
+        <div class="row" style="text-align: center;"><a href="#" id="reset" class="btn-success btn span3">Restart</a>
+        </div>
     </div>
 </div>
 <script src='https://code.jquery.com/jquery-1.7.2.min.js'></script>
