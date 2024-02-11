@@ -62,12 +62,13 @@ $(document).ready(function () {
 
     generateTile(numberOfTilesOrigin, scaleTileOrigin);
     var resetGame = (numberOfTiles, scaleTile) => {
-        $("#game li").text("+");
-        $("#game li").removeClass('disable')
-        $("#game li").removeClass('o')
-        $("#game li").removeClass('x')
-        $("#game li").removeClass('btn-primary')
-        $("#game li").removeClass('btn-info')
+        let gameCellElement = $("#game li");
+        gameCellElement.text("+");
+        gameCellElement.removeClass('disable')
+        gameCellElement.removeClass('o')
+        gameCellElement.removeClass('x')
+        gameCellElement.removeClass('btn-primary')
+        gameCellElement.removeClass('btn-info')
         count = 0
         hasWinner = false;
         playerWin = '';
@@ -111,11 +112,9 @@ $(document).ready(function () {
     let checkDiagonal = (idCell, listOfCell, playerSign, diagonalList) => {
         let isSame = true;
         if (diagonalList.includes(idCell)) {
-            console.log(idCell, ' include in ', diagonalList)
             for (const position of diagonalList) {
                 let cellValue = listOfCell[position].innerText.toUpperCase();
                 let sign = playerSign.toUpperCase();
-                console.log(position, cellValue, ' sign ', sign)
                 isSame = cellValue === sign;
                 if (!isSame) {
                     break;
@@ -126,32 +125,33 @@ $(document).ready(function () {
         return false;
     }
 
+    let declarationWinner = (playerSign) => {
+        playerWin = playerSign.toUpperCase();
+        alert(`Player ${playerWin} win!`);
+    }
+
     let checkWinner = (currentTarget, playerSign) => {
         let idCell = parseInt(currentTarget.attr("id"));
         let listOfCell = document.getElementById('game_board').getElementsByTagName('li');
-        let isCheck = checkHorizontal(idCell, playerSign, listOfCell);
-        if (isCheck) {
-            alert(`Player ${playerSign} win!`)
-            playerWin = playerSign.toUpperCase();
-            return isCheck
+        const isWinnerByCheckHorizontal = checkHorizontal(idCell, playerSign, listOfCell);
+        if (isWinnerByCheckHorizontal) {
+            declarationWinner(playerSign);
+            return isWinnerByCheckHorizontal
         }
-        isCheck = checkVertical(idCell, playerSign, listOfCell)
-        if (isCheck) {
-            alert(`Player ${playerSign} win!`)
-            playerWin = playerSign.toUpperCase();
-            return isCheck
+        const isWinnerByCheckVertical  = checkVertical(idCell, playerSign, listOfCell)
+        if (isWinnerByCheckVertical) {
+            declarationWinner(playerSign);
+            return isWinnerByCheckVertical
         }
-        isCheck = checkDiagonal(idCell, listOfCell, playerSign, leftDiagonal);
+        const isWinnerByLeftDiagonalCheck = checkDiagonal(idCell, listOfCell, playerSign, leftDiagonal);
         if (isCheck) {
-            alert(`Player ${playerSign} win!`)
-            playerWin = playerSign.toUpperCase();
-            return isCheck
+            declarationWinner(playerSign);
+            return isWinnerByLeftDiagonalCheck
         }
-        isCheck = checkDiagonal(idCell, listOfCell, playerSign, rightDiagonal);
-        if (isCheck) {
-            alert(`Player ${playerSign} win!`)
-            playerWin = playerSign.toUpperCase();
-            return isCheck
+        const isWinnerByRightDiagonalCheck = checkDiagonal(idCell, listOfCell, playerSign, rightDiagonal);
+        if (isWinnerByRightDiagonalCheck) {
+            declarationWinner(playerSign);
+            return isWinnerByRightDiagonalCheck
         }
     }
 
@@ -176,8 +176,6 @@ $(document).ready(function () {
             return;
         }
         if (count % 2 === 0) {
-            //todo: it is o turn
-            console.log('it is o turn' + count + " " + numberOfTilesOrigin);
             currentTarget.text(o);
             currentTarget.addClass('disable o btn-primary');
             count++;
@@ -188,8 +186,6 @@ $(document).ready(function () {
             }
             playerTurn.innerHTML = x + '\' player turns';
         } else {
-            //todo: it is x turn
-            console.log('it is x turn' + count + " " + numberOfTilesOrigin);
             currentTarget.text(x);
             currentTarget.addClass('disable x btn-primary')
             count++;
