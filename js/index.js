@@ -9,10 +9,10 @@ $(document).ready(function () {
     let scaleTileOrigin = parseInt($("#size_scale").val());
     let numberOfTilesOrigin = scaleTileOrigin * scaleTileOrigin;
     let hasWinner = false;
+    let playerWin = '';
     let leftDiagonal = [];
     let rightDiagonal = [];
 
-    //todo: generate tile
     var generateSizeTile = (scaleTile, numberOfTiles) => {
         scaleTile = parseInt($("#size_scale").val());
         numberOfTiles = scaleTile * scaleTile;
@@ -24,13 +24,11 @@ $(document).ready(function () {
     }
 
     let generateDiagonalList = (scaleTile) => {
-        //todo: check left diagonal start from 0 + (1 + scaleTile + (n + 1))
         let positionLeft = 0;
         for (let i = 0; i < scaleTile; i++) {
             leftDiagonal.push(positionLeft + i);
             positionLeft += scaleTile;
         }
-        //todo: check right diagonal start from scaleTile, scaleTile + (n - 1)
         let positionRight = 0;
         for (let i = scaleTile - 1; i >= 0; i--) {
             rightDiagonal.push(positionRight + i);
@@ -71,6 +69,8 @@ $(document).ready(function () {
         $("#game li").removeClass('btn-primary')
         $("#game li").removeClass('btn-info')
         count = 0
+        hasWinner = false;
+        playerWin = '';
         const sizeTile = generateSizeTile(scaleTile, numberOfTiles);
         scaleTileOrigin = sizeTile.scaleTile;
         numberOfTilesOrigin = sizeTile.numberOfTiles;
@@ -132,21 +132,25 @@ $(document).ready(function () {
         let isCheck = checkHorizontal(idCell, playerSign, listOfCell);
         if (isCheck) {
             alert(`Player ${playerSign} win!`)
+            playerWin = playerSign.toUpperCase();
             return isCheck
         }
         isCheck = checkVertical(idCell, playerSign, listOfCell)
         if (isCheck) {
             alert(`Player ${playerSign} win!`)
+            playerWin = playerSign.toUpperCase();
             return isCheck
         }
         isCheck = checkDiagonal(idCell, listOfCell, playerSign, leftDiagonal);
         if (isCheck) {
             alert(`Player ${playerSign} win!`)
+            playerWin = playerSign.toUpperCase();
             return isCheck
         }
         isCheck = checkDiagonal(idCell, listOfCell, playerSign, rightDiagonal);
         if (isCheck) {
             alert(`Player ${playerSign} win!`)
+            playerWin = playerSign.toUpperCase();
             return isCheck
         }
     }
@@ -155,8 +159,14 @@ $(document).ready(function () {
         //todo: change text according to player
         let currentTarget = $(event.currentTarget);
         let playerTurn = document.getElementById('player_turn');
+        let xWin = document.getElementById('x_win');
+        let oWin = document.getElementById('o_win');
+        if (hasWinner) {
+            alert(`Player ${playerWin} win!, the game will restart`)
+            resetGame(numberOfTilesOrigin, scaleTileOrigin);
+            return;
+        }
         if (count >= numberOfTilesOrigin) {
-            //todo: check winner or tie
             alert('It is a tie, the game will restart ');
             resetGame(numberOfTilesOrigin, scaleTileOrigin);
             return;
@@ -172,6 +182,10 @@ $(document).ready(function () {
             currentTarget.addClass('disable o btn-primary');
             count++;
             hasWinner = checkWinner(currentTarget, o);
+            if (hasWinner) {
+                o_win++;
+                oWin.innerText = o_win.toString();
+            }
             playerTurn.innerHTML = x + '\' player turns';
         } else {
             //todo: it is x turn
@@ -180,6 +194,10 @@ $(document).ready(function () {
             currentTarget.addClass('disable x btn-primary')
             count++;
             hasWinner = checkWinner(currentTarget, x);
+            if (hasWinner) {
+                x_win++;
+                xWin.innerText = x_win.toString();
+            }
             playerTurn.innerHTML = o + '\' player turns';
         }
     }
